@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateNinjaDto } from './dto/create-ninja.dto';
 import { UpdateNinjaDto } from './dto/update-ninja.dto';
+import { NinjaNotFoundException } from 'src/errors/ninjaNotFound.exception';
 
 @Injectable()
 export class NinjasService {
@@ -19,7 +20,7 @@ export class NinjasService {
   getNinja(id: number) {
     const ninja = this.ninjas.find((ninja) => ninja.id === id);
     if (!ninja) {
-      throw new Error('ninja not found');
+      throw new NinjaNotFoundException();
     }
     return ninja;
   }
